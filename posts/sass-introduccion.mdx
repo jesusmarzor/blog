@@ -1,0 +1,175 @@
+---
+title: 'Sass: Syntactically Awesome Style Sheets'
+date: '2022-03-02'
+img: '/img/sass.png'
+tags:
+    - sass
+---
+
+# Sass: Syntactically Awesome Style Sheets
+
+## ¿Qué es Sass?
+
+Es un preprocesador CSS. Los preprocesadores CSS son herramientas para los desarrolladores de sitios web que permiten traducir un código de hojas de estilo no estándar, específico del preprocesador en cuesión, a un código CSS estándar, entendible por todos los navegadores.
+
+Los preprocesadores básicamente nos ofrecen diversas utilidades que a día de hoy no se encuentran o son muy recientes en el lenguaje CSS.
+
+Podríamos elegir otras alternativas como Less o Stylus ya que al final todos ofrecen más o menos las mismas utilidades. Pero sin embargo, Sass se ha convertido en el preprocesador más usado y demandado.
+
+## ¿Qué tipos de sintaxis existe?
+
+Existen dos tipos de sintaxis para escribir su código:
+
+- **Sintaxis sass**: esta sintaxis es un poco diferente de la sintaxis de CSS estándar (no difiere mucho). Por ejemplo, te evita colocar **;** al final de los valores de propiedades y en vez de llaves, se usan indentados.
+
+- **Sintaxis scss**: esta sintaxis es una sintaxis bastante similar a la del propio CSS. De hecho, el código CSS es código SCSS válido. Podríamos decir que SCSS es código CSS con algunos detalles extra. 
+
+En la práctica, aunque podría ser más rápido escribir con sintaxis Sass, es menos recomendable, porque te aleja más del propio lenguaje CSS.
+
+## ¿Qué nos ofrece?
+
+### Módulos
+
+Podemos separar nuestro código SCSS en varios modulos e importarlos en el archivo principal.
+
+./header.scss
+```scss
+.header{
+    background-color: red;
+}
+```
+
+./styles.scss
+```scss
+@use "header";
+
+.footer{
+    background-color: gray;
+}
+```
+
+Si importamos a nuestro archivo HTML el archivo .css generado por nuestro archivo **./styles.scss**, las etiquetas que contienen la clase *header* tendrán un fondo de color *rojo*.
+
+### Variables
+
+Podemos utilizar variables como en cualquier lenguaje de programación. Esto puede ser útil, por ejemplo, cuando tenemos colores en exadecimal o en RGB y no recordamos sus valores.
+
+```scss
+$color: rgb(255,100,58);
+
+.header{
+    background-color: $color;
+}
+```
+
+Las etiquetas que contienen la clase *header* tendrán un fondo de color *rgb(255,100,58)*.
+
+### Anidación
+
+Sin duda, una de las mejoras más útiles que ofrece Sass ya que simplifica el código y queda más legible.
+
+```scss
+header{
+    ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        a{
+            color: white;
+            text-decoration: none;
+        }
+    }
+}
+```
+
+Las etiquetas **a** que estén dentro de la etiqueta **ul** que a su vez esten dentro de la etiqueta **header** tendrán una letra de color *blanco* y *sin decoración*.
+
+### Mixins
+
+Los mixins en Sass simulan las funciones en cualquier lenguaje de programación. Son muy útiles cuando te das cuenta que estás repitiendo mucho unas serie de sentencias en scss.
+
+```scss
+@mixin flex($direction, $wrap, $justify, $items){
+    display: flex;
+    flex-flow: $direction $wrap;
+    justify-content: $justify;
+    align-items: $items;
+}
+.menu{
+    @include flex(row, nowrap, center, center);
+}
+```
+
+Las etiquetas que contienen la clase *menu* incluirán las sentencias que estén en el mixin llamado *flex*.
+
+### Condiciones
+
+Las condiciones de Sass son iguales que en cualquier lenguaje de programación.
+
+```scss
+$color: orange;
+.header{
+    @if $color == orange{
+        color: white;
+    }@else if $color == red{
+        color: black;
+    }@else{
+        color: green;
+    }
+}
+```
+
+Las etiquetas que contienen la clase *header* tendrán una letra de color:
+    - **Blanco**: Si la variable *color* es naranja.
+    - **Negro**: Si la variable *color* es rojo.
+    - **Verde**: Si la variable *color* es cualquiera menos naranja o rojo.
+
+### Bucles
+
+Los bucles de Sass son iguales que en cualquier lenguaje de programación.
+    
+    - Bucle for.
+        ```scss
+        $contador = 1;
+        
+        @for $contador from 1 through 4{
+            .listado{
+                ul{
+                    li:nth-child(#{$contador}){
+                        color: orange;
+                        font-size: $contador * 10px;
+                    }
+                }
+            }
+        }
+        ```
+
+    - Bucle while.
+        ```scss
+        $i: 1;
+
+        @while $i <= 4{
+            .listado{
+                ul{
+                    li:nth-child(#{$i}){
+                        color: orange;
+                        font-size: $i * 10px;
+                    }
+                }
+            }
+            $i: $i + 1;
+        }
+        ```
+
+    Cada etiqueta *li* que esté dentro de la etiqueta *ul* que a su vez este dentro de una etiqueta que contiene la clase *listado*, tendrá una letra de color *naranja* y un *tamaño de x10* con respecto a su posición como hija de la etiqueta *ul*.
+
+    Por ejemplo:
+
+    Si hay dos etiquetas *li* dentro de una etiqueta *ul* respetando la anidación de los dos códigos anterior. La primera etiqueta *li* tendrá un tamaño de 10px y la segunda de 20px.
+
+## Conclusión
+
+Usar un preprocesador de CSS como Sass reduce el tiempo para crear archivos CSS, permite tener una organización modular de los estilos de tu web y proporciona escrituras propias de lenguajes de programación como variables, funciones y bucles.
+
+A nivel personal, esta ayuda que nos ofrece Sass se mejora exponencialmente si usas una metodología, por ejemplo: BEM o SUIT CSS.
