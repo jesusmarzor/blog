@@ -7,6 +7,7 @@ export function ImageLink({name, href}){
                 <div className="group-hover:scale-105 transition duration-300 ease">
                     <Image
                         src={`/img/${name}.png`}
+                        alt={`Imagen de mi ${name}`}
                         width={2018}
                         height={1085}
                     />

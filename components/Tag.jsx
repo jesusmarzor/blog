@@ -11,6 +11,7 @@ export function Tag({children, tag}){
                         <div className="flex justify-centr items-center mr-2">
                             <Image
                                 src={`/img/${tag}.png`}
+                                alt={`Imagen de ${tag}`}
                                 width={25}
                                 height={25}
                             />
