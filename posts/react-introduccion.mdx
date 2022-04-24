@@ -1,0 +1,149 @@
+---
+title: 'React: ¿Cómo empezar?'
+date: '2022-04-24'
+img: '/img/react.png'
+tags:
+    - react
+---
+
+# React: ¿Cómo empezar?
+
+## ¿Qué es React?
+
+React es una librería de Javascript que está enfocada en la reutilización de código. Permite tratar al código como si fuera un puzzle.
+
+En unos minutos entenderéis por qué.
+
+La aplicación que vamos a desarrollar es un contador.
+
+## Entorno de desarrollo
+
+### Node.js
+
+Vamos a usar Node.js para utilizar una herramienta llamada **create-react-app**. Esta herramienta nos genera una estructura de ficheros y directorios para empezar a crear nuestra aplicación con React.
+
+Para instalar Node.js, tendréis que ir a su página oficial ([aquí](https://nodejs.org/es/)), descargarlo e instalarlo.
+
+### Generar entorno
+
+Nos situamos en la carpeta donde queramos alojar nuestro proyecto. Abrimos la terminal y escribimos este comando:
+
+```
+npx create-react-app contador
+```
+
+### Archivos generados
+
+- **public/**: Aquí se alojan los ficheros estáticos de la aplicación. Por ejemplo: favicon o el propio HEAD en html.
+- **src/**: Aquí se aloja el código de nuestra aplicación y es el directorio donde vamos a trabajar.
+
+Los demas archivos son de **git** para conectarlo a algun repositorio y de **node** para guardar los paquetes que necesitemos.
+
+### Ejecutar el servidor
+
+Nos situamos en la raiz de nuestro proyecto y ejecutamos en la terminal:
+
+```
+npm start
+```
+
+Se nos abrirá en el navegador la página que trae por defecto **create-react-app**. Si no se abre directamente la página en el navegador, tenemos que dirigirnos a la dirección [http://localhost:3000](http://localhost:3000)
+
+## Empezamos con el código
+
+Abrimos el archivo *src/App.js* y borramos todo lo que contiene el div con la clase *App*.
+
+Nos quedariamos con el archivo:
+
+src/App.js
+```react
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      
+    </div>
+  );
+}
+
+export default App;
+```
+
+Ahora nuestro servidor nos mostrará una página en blanco ya que hemos eliminado todo el código por defecto.
+
+## Nuestro primer componente
+
+Un componente es un trozo de código que podemos utilizar cuantas veces queramos en nuestra aplicación.
+
+Creamos en la carpeta *src/* una nueva carpeta llamada **components**. En esta carpeta situaremos todos nuestros componentes.
+
+Creamos nuestro primer componente llamado **Contador.jsx**
+
+```react
+export function Contador() {
+
+    return <h1>Contador</h1>
+}
+```
+
+**IMPORTANTE**, esta curiosa sintaxis de etiquetas no es ni un string ni HTML, se llama JSX, y es una extensión de la sintaxis de JavaScript.
+
+Una vez creado, usaremos ese componente (o trocito de código) en el archivo principal *src/App.js*
+
+```react
+import './App.css';
+import { Contador } from './components/Contador';
+
+function App() {
+  return (
+    <div className="App">
+      <Contador/>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Ahora al refrescar la web nos tendrá que aparecer solo la etiqueta h1 que pusimos en nuestro componente.
+
+Para convertir ese componente en un contador de verdad, tendremos que:
+
+  - Importar un hook del módulo de react llamado *useState*, este hook nos sirve para crear una variable donde almacenaremos el estado de nuestro contador.
+  - Crear la función suma para sumar 1 a esa variable.
+  - Crear la función resta para restar 1 a esa variable.
+  - Llamar al atributo *onClick* de los botones, este atributo nos sirve para ejecutar una función cada vez que se haga click en el botón.
+
+Abrimos el archivo *src/components/Contador.jsx* y lo editamos teniendo en cuenta las pautas mencionados anteriormente.
+
+```react
+import { useState } from "react" // Importamos el hook
+
+export function Contador() {
+    const [contador, setContador] = useState(0); // Creamos la variable contador y su modificador
+    
+    // Creamos la función suma
+    const sumarUno = () => {
+        // setContador(contador + 1);
+        setContador( preValue => preValue + 1);
+    }
+    
+    // Creamos la función resta
+    const restarUno = () => {
+        setContador(contador - 1);
+        // setContador( preValue => preValue - 1);
+    }
+
+    return (
+        <>
+            {/* Llamamos al atributo onClick de cada botón y cada uno llama a su respectiva función. */}
+            <button onClick={restarUno}>-</button>
+            <p>{contador}</p>
+            <button onClick={sumarUno}>+</button>
+        </>
+    )
+}
+```
+
+Si guardamos los cambios y actualizamos la web, aparece el contador funcionando correctamente.
