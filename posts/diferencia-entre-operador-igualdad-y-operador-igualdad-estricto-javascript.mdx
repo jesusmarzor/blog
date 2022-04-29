@@ -1,0 +1,137 @@
+---
+title: 'Diferencia entre operador de igualdad (==) y operador de igualdad estricta (===) en javascript'
+date: '2022-04-29'
+img: '/img/javascript.png'
+tags:
+    - javascript
+---
+
+# Diferencia entre operador de igualdad (==) y operador de igualdad estricta (===) en javascript
+
+## Comparar valores primitivos
+
+### Operador de igualdad estricta (===)
+
+Si comparamos dos valores primitivos con un operador de igualdad estricta, javascript nos mostrará dos resultados:
+- **true** si tienen el mismo tipo y el mismo valor.
+- **false** si tienen distinto tipo y/o diferente valor.
+
+Por ejemplo:
+
+```javascript
+'2' === 2 // false
+ 2  === 2 // true
+
+'hola' === 'Hola' // false
+'hola' === 'hola' // true
+```
+
+**Nota**: Javascript toma con diferente valor las mayúsculas y las minúsculas.
+
+### Operador de igualdad (==)
+
+**Nota**: Antes de la explicación, tenemos que saber que javascript convierte internamente los dos valores en el mismo tipo y compara los valores. 
+
+Por ejemplo:
+
+En javascript podemos hacer una division entre un número y un string.
+
+```javascript
+10/'5' = 2
+```
+Internamente, javascript, convierte el string '5', en un número para ejecutar la operación correctamente.
+
+
+Si comparamos dos valores primitivos con un operador de igualdad, javascript nos mostrará dos resultados:
+- **true** si conviertiendo uno de ellos o ambos al mismo tipo y sus valores son iguales.
+- **false** si convirtiendo uno de ellos o ambos al mismo tipo y sus valores son diferentes.
+
+Por ejemplo: 
+
+```javascript
+'2' == 2 // true
+'   ' == 0 // true
+'\n' == 0 // true
+```
+
+Pero... 
+
+¿Tenemos que aprendernos todas las reglas de conversiones de tipos que hace javascript internamente?
+
+La respuesta es **NO** ya que se recomienda usar el operador de igualdad estricta (===) para evitar eso.
+
+## Comparar objetos, funciones, arrays...
+
+Trabajar con estos tipos de datos puede ser complicado ya que estos, cuando los comparas, **NO comparas sus VALORES, comparas sus DIRECCIONES DE MEMORIA**.
+
+Por ejemplo:
+
+```javascript
+var persona = {
+    nombre: 'Jesús'.
+    edad: 22
+}
+```
+
+Internamente, javascript guarda el objeto persona en una dirección de memoria, por ejemplo: E82HD7.
+
+Si creamos otro objeto con los mismos valores que el anterior:
+
+```javascript
+var persona2 = {
+    nombre: 'Jesús'.
+    edad: 22
+}
+```
+Internamente, javascript guarda el objeto persona2 en otra dirección de memoria, por ejemplo: O2HE8I
+
+Ahora, estos dos objetos tienen el mismo valor. 
+
+Si lo comparamos...
+
+¿Qué resultado nos dará?
+
+```javascript
+persona ==  persona2 // false
+persona === persona2 // false
+```
+El resultado será **falso** en ambos casos porque lo que se igualan son las direcciones de memoria. Internamente, javascript compara E82HD7 *(dirección de memoria de persona)* y O2HE8I *(dirección de memoria de persona2)*.
+
+Realmente, para que el resultado sea **true**, se tiene que comparar el objeto con él mismo.
+
+Otra opción podría ser comparar el objeto con otro objeto que apunte a la misma dirección de memoria.
+
+Pero... 
+
+¿Cómo hacemos eso?
+
+```javascript
+var persona3 = persona
+```
+
+Si a la variable persona3 le asignamos otra variable que contiene un objeto *(como es el caso de persona)*. Ahora, ambas apuntan la misma dirección de memoria.
+
+Si las comparamos:
+
+```javascript
+persona ==  persona3 // true
+persona === persona3 // true
+```
+
+El resultado es **true** ya que internamente, javascript compara E82HD7 *(dirección de memoria de persona)* y E82HD7 *(dirección de memoria de persona3)*.
+
+## ¿Qué ocurre con el operador de desigualdad (!=) y el operador de desigualdad estricta (!==)?
+
+**Nota**: Estos operadores, actúan igual que los mencionados anteriormente.
+
+### Operador de desigualdad estricta (!==)
+
+Si comparamos dos valores primitivos con un operador de desigualdad estricta, javascript nos mostrará dos resultados:
+- **true** si tienen distinto tipo y/o diferente valor.
+- **false** si tienen el mismo tipo y el mismo valor.
+
+### Operador de desigualdad (!=)
+
+Si comparamos dos valores primitivos con un operador de desigualdad, javascript nos mostrará dos resultados:
+- **true** si convirtiendo uno de ellos o ambos al mismo tipo y sus valores son diferentes.
+- **false** si conviertiendo uno de ellos o ambos al mismo tipo y sus valores son iguales.
