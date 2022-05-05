@@ -3,22 +3,19 @@ import { useEffect, useState } from "react";
 export default function useTheme(){
     const [theme, setTheme] = useState(null);
     const checkTheme = (newTheme) => {
-        if(newTheme === 'dark'){
+        (newTheme === 'dark')
+        ?
             document.documentElement.classList.add('dark')
-            localStorage.theme = 'dark';
-            setTheme('dark');
-        }else{
+        :
             document.documentElement.classList.remove('dark')
-            localStorage.theme = 'light';
-            setTheme('light');
-        }
+        localStorage.theme = newTheme;
+        setTheme(newTheme);
     }
     useEffect( () => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             checkTheme('dark');
         } else {
-            document.documentElement.classList.remove('dark')
-            checkTheme('light');
+            checkTheme('light')
         }
     }, [])
     const changeTheme = () => {
