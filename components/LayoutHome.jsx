@@ -5,7 +5,7 @@ import {tags} from 'services/tags'
 
 export function LayoutHome({children}){
     return(
-        <div className="flex bg-white flex-col sm:flex-row">
+        <div className="flex flex-col sm:flex-row">
             <div className="sm:w-4/6">
                 {children}
                 <div className="mb-4">

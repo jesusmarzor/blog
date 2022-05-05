@@ -6,7 +6,7 @@ export function Tag({children, tag}){
     const router = useRouter();
     return (
         <Link href={(tag === 'all') ? '/' : `/tags/${tag}`}>
-            <a className={`flex justify-center items-center px-3 py-2 mx-2 mb-2 rounded-3xl border-2 border-gray cursor-pointer hover:border-sky-500 transition duration-300 ease ${(tag === 'all' && !router.query.tag) && 'border-sky-500'} ${(router.query.tag === tag) && 'border-sky-500'}`}>
+            <a className={`flex justify-center items-center px-3 py-2 mx-2 mb-2 rounded-3xl border-2 border-gray cursor-pointer hover:border-sky-500 transition-border duration-300 ease ${(tag === 'all' && !router.query.tag) && 'border-sky-500'} ${(router.query.tag === tag) && 'border-sky-500'}`}>
                 {
                     (tag !== 'all')
                     &&
