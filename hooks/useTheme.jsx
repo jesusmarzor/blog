@@ -2,30 +2,31 @@ import { useEffect, useState } from "react";
 
 export default function useTheme(){
     const [theme, setTheme] = useState(null);
-    const checkTheme = () => {
-        if(localStorage.theme === 'light'){
-            setTheme('light');
-        }else{
+    const checkTheme = (newTheme) => {
+        if(newTheme === 'dark'){
+            document.documentElement.classList.add('dark')
+            localStorage.theme = 'dark';
             setTheme('dark');
+        }else{
+            document.documentElement.classList.remove('dark')
+            localStorage.theme = 'light';
+            setTheme('light');
         }
     }
     useEffect( () => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
+            checkTheme('dark');
         } else {
             document.documentElement.classList.remove('dark')
+            checkTheme('light');
         }
-        checkTheme();
     }, [])
     const changeTheme = () => {
-        if (localStorage.theme === 'light') {
-            localStorage.theme = 'dark';
-            document.documentElement.classList.add('dark')
+        if (localStorage.theme === 'dark') {
+            checkTheme('light');
         } else {
-            localStorage.theme = 'light';
-            document.documentElement.classList.remove('dark')
+            checkTheme('dark');
         }
-        checkTheme();
     }
     return {theme, changeTheme}
 }
