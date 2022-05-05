@@ -1,5 +1,5 @@
 import {tags} from 'services/tags'
-import Layout from 'components/Layout'
+import Head from 'next/head'
 import { Section } from 'components/Section'
 import { LayoutHome } from 'components/LayoutHome'
 import { getAllFilesMetadata } from 'services/mdx'
@@ -9,7 +9,8 @@ import { PostsList } from 'components/PostsList'
 export default function TagSearchPage({posts}){
   const router = useRouter();
   return(
-    <Layout title={`- ${router.query.tag}`}>
+    <>
+      <Head><title>Blog - {router.query.tag}</title></Head>
       <LayoutHome>
         <div className="mb-10">
           <Section title="Últimos artículos">
@@ -17,7 +18,7 @@ export default function TagSearchPage({posts}){
           </Section>
         </div>
       </LayoutHome>
-    </Layout>
+    </>
   )
 }
 
