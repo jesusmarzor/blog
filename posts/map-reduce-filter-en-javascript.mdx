@@ -1,0 +1,82 @@
+---
+title: 'Map, filter y reduce en Javascrpt'
+date: '2022-05-09'
+img: '/img/javascript.png'
+tags:
+    - javascript
+---
+
+# Map, filter y reduce en Javascrpt
+
+Hay muchas formas de recorrer un array en Javascript. Por ejemplo, si queremos sacar los números pares de un array, la primera forma que nos suele venir a la cabeza es:
+
+```javascript
+function filtrarPares(numeros) {
+    const numerosPares = [];
+    for(let i = 0; i < numeros.length; i++){
+        if(numeros[i] % 2 === 0) {
+            numerosPares.push(numeros[i]);
+        }
+    }
+    return numerosPares;
+}
+```
+
+Por suerte, en Javascript hay mejores formas de hacerlo. Son soluciones más cortas y fáciles de leer.
+
+**Map, filter y reduce** son tres métodos que todos los arrays tienen y deberías conocer.
+
+## Map
+
+Se usa **map** cuando **tenemos un array** y queremos obtener **otro array diferente**.
+
+El método map siempre recibe una función que se encarga de transformar cada uno de los elementos del array original por el elemento que devuelve. 
+
+Por ejemplo:
+```javascript
+const numeros = [1, 2, 3, 4, 5, 6];
+
+const dobles = numeros.map( function (numero) {
+    return numero * 2;
+})
+
+console.log(dobles); // [2, 4, 6, 8, 10, 12]
+```
+
+## Filter
+
+Se usa **filter** cuando **tenemos un array** y queremos obtener **otro array con los elementos que cumplan una condición**.
+
+El método filter siempre recibe una función que contiene una condición y se encarga de elegir cada uno de los elementos del array original.
+
+Por ejemplo:
+```javascript
+const numeros = [1, 2, 3, 4, 5, 6];
+
+const pares = numeros.filter( function (numero) {
+    if(numero % 2 === 0){
+        return numero;
+    }
+})
+
+console.log(pares); // [2, 4, 6]
+```
+
+## Reduce
+
+Se usa **reduce** cuando tenemos un array y queremos obtener **un único valor resultado de operar un acumulador con todos los elementos del array original**.
+
+El método reduce siempre recibe:
+    - Una función que se encarga de actualizar el valor del acumulador con cada elemento del array. Esta función siempre recibe como primer parámetro el propio acumulador.
+    - El valor inicial que recibe el acumulador.
+
+Por ejemplo:
+```javascript
+const numeros = [1, 2, 3, 4, 5, 6];
+
+const sumaNumeros = numeros.reduce( function (acumulador, numero) {
+    return acumulador + numero;
+}, 0)
+
+console.log(sumaNumeros); // 21
+```
