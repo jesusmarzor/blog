@@ -1,0 +1,101 @@
+---
+title: 'Scope en javascript'
+date: '2022-05-22'
+img: '/img/javascript.png'
+tags:
+    - javascript
+---
+
+# Scope en javascript
+
+El **scope** es el contexto actual de ejecución. El contexto en el que los valores y las expresiones son "visibles" o pueden ser referenciados.
+
+Por ejemplo:
+
+```javascript
+function primeraFuncion () {
+    var numero = 1;
+    console.log(numero); // 1
+}
+function segundaFuncion () {
+    var numero = 2;
+    console.log(numero); // 2
+}
+```
+
+Cuando queramos hacer referencia a la variable *nombre*:
+    - Es **1** en el scope de la primera función.
+    - Es **2** en el scope de la segunda función.
+
+La misma variable puede significar una cosa u otra dependiendo del contexto actual de ejecución.
+
+## Scope global
+
+Las variables globales puden ser accedidas desde cualquier lugar de nuestro programa.
+
+Por ejemplo:
+
+```javascript
+var numero = 1; // variable global
+
+function primeraFuncion() {
+    console.log(numero); // 1
+}
+console.log(numero); // 1
+```
+
+## Scope de función
+
+Las variables que se definen dentro de una función o los parámetros que recibe una función solo son accesibles dentro de esa función.
+
+Por ejemplo:
+
+```javascript
+function primeraFuncion() {
+    var numero = '1;
+    console.log(numero); // 1
+}
+console.log(numero); // ERROR DE REFERENCIA
+```
+
+## Scope de bloque
+
+El scope de bloque es toda porción de código que esté encerrada entre llaves.
+
+Por ejemplo:
+
+```javascript
+function primeraFuncion() {
+    var numero = 1;
+    if(true) {
+        var otroNumero = 2; // variable de bloque
+        console.log(otroNumero); // 2
+    }
+    console.log(numero); // 1;
+    console.log(otroNumero); // 2
+}
+console.log(numero); // ERROR DE REFERENCIA
+```
+
+Pero hay que tener en cuenta que si definimos una variable con **let** o **const** dentro de un scope de bloque, no se va a poder acceder a esa variable fuera de este scope.
+
+Por ejemplo:
+
+```javascript
+function primeraFuncion() {
+    var numero = 1;
+    if(true) {
+        let otroNumero = 2; // variable de bloque
+        console.log(otroNumero); // 2
+    }
+    console.log(numero); // 1;
+    console.log(otroNumero); // ERROR DE REFERENCIA
+}
+console.log(numero); // ERROR DE REFERENCIA
+```
+
+## Conclusión
+
+Cuando llamas a una variable en Javascript, este se encarga de buscar esa variable desde el scope donde se encuentra la ejecución en ese momento, hasta el scope global. Si esta variable no existe en ningun scope, nos aparecerá el típico ERROR DE REFERENCIA.
+
+
