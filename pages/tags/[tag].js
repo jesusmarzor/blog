@@ -1,25 +1,11 @@
 import {tags} from 'services/tags'
-import Head from 'next/head'
-import { Section } from 'components/Section'
-import { LayoutHome } from 'components/LayoutHome'
 import { getAllFilesMetadata } from 'services/mdx'
 import { useRouter } from 'next/router'
-import { PostsList } from 'components/PostsList'
+import { LayoutPosts } from 'components/LayoutPosts'
 
 export default function TagSearchPage({posts}){
   const router = useRouter();
-  return(
-    <>
-      <Head><title>Blog - {router.query.tag}</title></Head>
-      <LayoutHome>
-        <div className="mb-10">
-          <Section title="Últimos artículos">
-            <PostsList posts={posts}/>
-          </Section>
-        </div>
-      </LayoutHome>
-    </>
-  )
+  return <LayoutPosts allPosts={posts} title={router.query.tag}/>
 }
 
 export async function getStaticPaths(){
