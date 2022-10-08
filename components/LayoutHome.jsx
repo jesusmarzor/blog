@@ -23,7 +23,7 @@ export function LayoutHome({children}){
             </div>
             <aside className="sm:w-2/6">
                 <Section title="Portfolio">
-                    <ImageLink name="projects" href="https://jesusmarzor.com"/>
+                    <ImageLink name="projects" href="https://jesusmarzor.vercel.app"/>
                 </Section>
                 <Section title="Github">
                     <ImageLink name="github" href="https://github.com/jesusmarzor/"/>
