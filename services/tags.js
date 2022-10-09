@@ -1,1 +1,1 @@
-export const tags = ['Sass', 'React', 'Javascript'];
+export const tags = ['Sass', 'React', 'Javascript', 'Personal'];
